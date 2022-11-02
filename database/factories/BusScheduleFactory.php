@@ -18,11 +18,11 @@ class BusScheduleFactory extends Factory
     {
         return [
             'bus_id' => fake()->numberBetween(1, 9),
-            'take_off_time' => fake()->unixTime(),            
-            'drop_off_time' => fake()->unixTime(),
+            'take_off_time' => fake()->dateTime()->format('Y-m-d H:i'),            
+            'drop_off_time' => fake()->dateTime()->format('Y-m-d H:i'),
             'take_off' => fake()->word(),
             'destination' => fake()->word(),
-            'ticket_price' => '-',
+            'ticket_price' => 100,
         ];
     }
 }

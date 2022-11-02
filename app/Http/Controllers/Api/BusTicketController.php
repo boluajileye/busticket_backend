@@ -15,10 +15,10 @@ class BusTicketController extends Controller
      */
     public function index()
     {
-        $BusTicket = BusTicket::join('users', 'bus_tickets.user_id', '=', 'users.id')->join('bus_schedules', 'bus_tickets.busSchedule_id', '=', 'bus_schedules.id')->where('bus_tickets.user_id',2)->get();;
+        $BusTicket = BusTicket::with('User')->with('BusSchedule')->get();
         return response()->json([
             'message' => 'success',
-            'bus'=> $BusTicket
+            'busticket'=> $BusTicket
         ]);
     }
 

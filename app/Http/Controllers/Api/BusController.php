@@ -16,7 +16,7 @@ class BusController extends Controller
      */
     public function index()
     {
-        $Bus = Bus::join('bus_schedules', 'buses.id', '=', 'bus_schedules.bus_id')->where('buses.id',1)->get();
+        $Bus = Bus::with('busschedule')->get();
         return response()->json([
             'message' => 'success',
             'bus'=> $Bus

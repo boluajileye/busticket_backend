@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Bus;
 use App\Models\BusSchedule;
 use Illuminate\Http\Request;
 
@@ -15,10 +16,10 @@ class BusScheduleController extends Controller
      */
     public function index()
     {
-        $BusSchedule = BusSchedule::join('buses', 'bus_schedules.bus_id', '=', 'buses.id')->where('bus_schedules.bus_id',1)->get();;
+        $BusSchedule = BusSchedule::with('Bus')->latest()->get();;
         return response()->json([
             'message' => 'success',
-            'bus'=> $BusSchedule
+            'busschedule'=> $BusSchedule
         ]);
     }
 

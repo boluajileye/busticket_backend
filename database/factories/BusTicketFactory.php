@@ -21,7 +21,7 @@ class BusTicketFactory extends Factory
             'user_id' => fake()->numberBetween(1, 9),
             'busSchedule_id' => fake()->numberBetween(1, 20),
             'status' => 'unused',
-            'price' => fake()->numberBetween(100, 250),
+            'price' => 100,
             'reference' => Str::random(15),            
         ];
     }

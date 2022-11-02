@@ -21,6 +21,6 @@ class BusTicket extends Model
     }
     public function BusSchedule()    
     {  
-        return $this->belongsTo(BusSchedule::class);
+        return $this->belongsTo(BusSchedule::class ,'busSchedule_id');
     }
 }
