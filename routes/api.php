@@ -24,4 +24,9 @@ Route::get('/busschedule',[App\Http\Controllers\Api\BusScheduleController::class
 
 Route::get('/busticket',[App\Http\Controllers\Api\BusTicketController::class, 'index']);
 
-Route::get('/directorybajskjehdwdenefmwalsskjsjsjjjajkakkwkdkwkwvk',[App\Http\Controllers\Api\DirectoryController::class, 'index']);
+Route::post('/bus-store',[App\Http\Controllers\Api\BusController::class, 'store']);
+
+Route::post('/busschedule-store',[App\Http\Controllers\Api\BusScheduleController::class, 'store']);
+
+Route::post('/busticket-store',[App\Http\Controllers\Api\BusTicketController::class, 'store']);
+

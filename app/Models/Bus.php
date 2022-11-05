@@ -10,15 +10,13 @@ class Bus extends Model
     use HasFactory;
    
 
-    public function definition()
-    {
-        return [
+    protected $fillable = [
             'companyName',
             'licensePlate',
             'driverName',
             'busCapacity',
         ];
-    }
+  
     public function BusSchedule()    
     {  
               return $this->hasMany(BusSchedule::class);

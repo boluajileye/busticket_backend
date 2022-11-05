@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\BusTicket;
 use Illuminate\Http\Request;
+use Exception;
+use App\Http\Request\BusTicketRequest;
 
 class BusTicketController extends Controller
 {
@@ -17,7 +19,7 @@ class BusTicketController extends Controller
     {
         $BusTicket = BusTicket::with('User')->with('BusSchedule')->get();
         return response()->json([
-            'message' => 'success',
+            'status' => 'success',
             'busticket'=> $BusTicket
         ]);
     }
@@ -40,7 +42,18 @@ class BusTicketController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try {
+            $BusTicket = BusTicket::create($request->all());
+            return response()->json([
+                'status' => 'success',
+                'message'=> 'Bus Ticket purchase Confirmed, Check Purse for Confirmation'
+            ]);
+        } catch (Exception $e) {
+            return response()->json([
+                'status' => 'fail',
+                'error'=> $e->getMessage()
+            ]);
+        }
     }
 
     /**

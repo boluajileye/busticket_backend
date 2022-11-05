@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Bus;
 use App\Models\BusSchedule;
 use Illuminate\Http\Request;
+use Exception;
+use App\Http\Requests\BusRequest;
 
 class BusController extends Controller
 {
@@ -18,7 +20,7 @@ class BusController extends Controller
     {
         $Bus = Bus::with('busschedule')->get();
         return response()->json([
-            'message' => 'success',
+            'status' => 'success',
             'bus'=> $Bus
         ]);
     }
@@ -41,7 +43,18 @@ class BusController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try {
+            $Bus = Bus::create($request->all());
+            return response()->json([
+                'status' => 'success',
+                'message'=> 'Bus created successfully'
+            ]);
+        } catch (Exception $e) {
+            return response()->json([
+                'status' => 'fail',
+                'error'=> $e->getMessage()
+            ]);
+        }
     }
 
     /**
