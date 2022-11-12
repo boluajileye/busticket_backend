@@ -18,7 +18,7 @@ class BusScheduleController extends Controller
      */
     public function index()
     {
-        $BusSchedule = BusSchedule::with('Bus')->orderBy('id', 'desc')->get();;
+        $BusSchedule = BusSchedule::with('Bus')->orderBy('id', 'desc')->paginate(10);
         return response()->json([
             'status' => 'success',
             'busschedule'=> $BusSchedule

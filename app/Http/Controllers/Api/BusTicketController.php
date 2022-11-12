@@ -17,7 +17,7 @@ class BusTicketController extends Controller
      */
     public function index()
     {
-        $BusTicket = BusTicket::with('User')->with('BusSchedule')->orderBy('id', 'desc')->get();
+        $BusTicket = BusTicket::with('User')->with('BusSchedule')->orderBy('id', 'desc')->paginate(10);
         return response()->json([
             'status' => 'success',
             'busticket'=> $BusTicket
