@@ -11,6 +11,16 @@ use App\Http\Request\BusTicketRequest;
 class BusTicketController extends Controller
 {
     /**
+     * Create a new Controller instance.
+     *
+     * @return void
+     */
+    // public function __construct()
+    // {
+    //     $this->middleware('auth:api');
+    // }
+
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
@@ -64,7 +74,26 @@ class BusTicketController extends Controller
      */
     public function show($id)
     {
-        //
+        $BusTicketSingle = BusTicket::with('User')->with('BusSchedule')->where('id', '=', $id)->first();
+        return response()->json([
+            'status' => 'success',
+            'bus'=> $BusTicketSingle
+        ]);
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function user($id)
+    {
+        $BusTicketUser = BusTicket::with('User')->with('BusSchedule')->where('user_id', '=', $id)->get();
+        return response()->json([
+            'status' => 'success',
+            'bus'=> $BusTicketUser
+        ]);
     }
 
     /**

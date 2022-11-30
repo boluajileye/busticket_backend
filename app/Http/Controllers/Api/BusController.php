@@ -12,6 +12,16 @@ use App\Http\Requests\BusRequest;
 class BusController extends Controller
 {
     /**
+     * Create a new Controller instance.
+     *
+     * @return void
+     */
+    // public function __construct()
+    // {
+    //     $this->middleware('auth:api');
+    // }
+
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
@@ -65,7 +75,11 @@ class BusController extends Controller
      */
     public function show($id)
     {
-        //
+        $BusSingle = Bus::with('busschedule')->where('id', '=', $id)->first();
+        return response()->json([
+            'status' => 'success',
+            'bus'=> $BusSingle
+        ]);
     }
 
     /**
@@ -88,7 +102,16 @@ class BusController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $Update = Bus::find($id);
+        $Update->companyName = $request->companyName;
+        $Update->licensePlate = $request->licensePlate;
+        $Update->driverName = $request->driverName;
+        $Update->busCapacity = $request->busCapacity;
+        $Update->save();
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Bus details Successfully Updated',
+        ]);
     }
 
     /**
@@ -99,6 +122,19 @@ class BusController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $Bus = Bus::find($id);
+        $BusDelete = $Bus->delete();
+        if ($BusDelete) {
+            return response()->json([
+            'status' => 'success',
+            'message' => 'Bus deleted',
+        ]);
+        } else {
+            return response()->json([
+                'status' => 'fail',
+            'message' => 'Unable to delete bus',
+            ]);
+        }
+        
     }
 }

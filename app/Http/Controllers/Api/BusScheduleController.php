@@ -12,6 +12,16 @@ use App\Http\Requests\BusScheduleRequest;
 class BusScheduleController extends Controller
 {
     /**
+     * Create a new Controller instance.
+     *
+     * @return void
+     */
+    // public function __construct()
+    // {
+    //     $this->middleware('auth:api');
+    // }
+
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
@@ -65,7 +75,7 @@ class BusScheduleController extends Controller
      */
     public function show(BusSchedule $busSchedule)
     {
-        //
+        
     }
 
     /**
@@ -86,19 +96,43 @@ class BusScheduleController extends Controller
      * @param  \App\Models\BusSchedule  $busSchedule
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, BusSchedule $busSchedule)
+    public function update(Request $request, $id)
     {
-        //
+        $Update = BusSchedule::find($id);
+        $Update->bus_id = $request->input['bus_id'];
+        $Update->take_off_time = $request->take_off_time;
+        $Update->drop_off_time = $request->drop_off_time;
+        $Update->take_off = $request->take_off;
+        $Update->destination = $request->destination;
+        $Update->ticket_price = $request->ticket_price;
+        $Update->save();
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Bus Schedule Successfully Updated',
+        ]);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\BusSchedule  $busSchedule
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(BusSchedule $busSchedule)
+    public function destroy($id)
     {
-        //
+        $BusSchedule = BusSchedule::find($id);
+        $BusScheduleDelete = $BusSchedule->delete();
+        if ($BusScheduleDelete) {
+            return response()->json([
+            'status' => 'success',
+            'message' => 'Bus Schedule deleted',
+        ]);
+        } else {
+            return response()->json([
+                'status' => 'fail',
+            'message' => 'Unable to delete bus Schedule',
+            ]);
+        }
+        
     }
 }
